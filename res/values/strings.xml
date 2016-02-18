@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">photoGallery</string>
     <string name="title_activity_media_chose">选择图片</string>
+    <string name="all_image">所有图片</string>
+    <string name="sure">确定</string>
+    <string name="least">最近</string>
+    <string name="camera">相机</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

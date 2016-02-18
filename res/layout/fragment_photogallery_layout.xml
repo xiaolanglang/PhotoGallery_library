@@ -23,7 +23,7 @@
         <TextView
             android:id="@+id/open_gallery"
             android:clickable="true"
-            android:text="最近"
+            android:text="@string/least"
             android:paddingLeft="22dp"
             android:minWidth="120dp"
             android:focusable="true"

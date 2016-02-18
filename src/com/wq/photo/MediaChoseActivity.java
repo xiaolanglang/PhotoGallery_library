@@ -67,8 +67,7 @@ public class MediaChoseActivity extends ActionBarActivity {
 		}
 		photoGalleryFragment = PhotoGalleryFragment.newInstance();
 		photoGalleryFragment.setArguments(bundle);
-		fragmentTransaction.add(R.id.container, photoGalleryFragment,
-				PhotoGalleryFragment.class.getSimpleName());
+		fragmentTransaction.add(R.id.container, photoGalleryFragment, PhotoGalleryFragment.class.getSimpleName());
 		fragmentTransaction.commit();
 		if (getSupportActionBar() != null) {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -92,10 +91,8 @@ public class MediaChoseActivity extends ActionBarActivity {
 				}
 				i++;
 			}
-			FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-					.beginTransaction();
-			fragmentTransaction.add(R.id.container, ImagePreviewFragemnt.newInstance(ims, pos),
-					ImagePreviewFragemnt.class.getSimpleName());
+			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.add(R.id.container, ImagePreviewFragemnt.newInstance(ims, pos), ImagePreviewFragemnt.class.getSimpleName());
 			fragmentTransaction.addToBackStack("con");
 			fragmentTransaction.commit();
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -135,10 +132,9 @@ public class MediaChoseActivity extends ActionBarActivity {
 			menu.findItem(R.id.menu_photo_count).setEnabled(true);
 			menu.findItem(R.id.menu_photo_count).setVisible(true);
 			if (chosemode == PickConfig.MODE_MULTIP_PICK) {
-				menu.findItem(R.id.menu_photo_count).setTitle(
-						"发送(" + imasgemap.size() + "/" + max_chose_count + ")");
+				menu.findItem(R.id.menu_photo_count).setTitle("确定(" + imasgemap.size() + "/" + max_chose_count + ")");
 			} else {
-				menu.findItem(R.id.menu_photo_count).setTitle("发送(1)");
+				menu.findItem(R.id.menu_photo_count).setTitle("确定(1)");
 			}
 		}
 		return super.onCreateOptionsMenu(menu);
@@ -153,8 +149,7 @@ public class MediaChoseActivity extends ActionBarActivity {
 				finish();
 			}
 		} else if (item.getItemId() == R.id.menu_photo_delete) {
-			ImagePreviewFragemnt fragemnt = (ImagePreviewFragemnt) getCurrentFragment(ImagePreviewFragemnt.class
-					.getSimpleName());
+			ImagePreviewFragemnt fragemnt = (ImagePreviewFragemnt) getCurrentFragment(ImagePreviewFragemnt.class.getSimpleName());
 			if (fragemnt != null) {
 				String img = fragemnt.delete();
 				Iterator iterator = imasgemap.keySet().iterator();
@@ -224,8 +219,7 @@ public class MediaChoseActivity extends ActionBarActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CROP
-				&& (chosemode == PickConfig.MODE_SINGLE_PICK)) {
+		if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CROP && (chosemode == PickConfig.MODE_SINGLE_PICK)) {
 			Intent intent = new Intent();
 			ArrayList<String> img = new ArrayList<>();
 			String crop_path = data.getStringExtra("crop_path");
@@ -238,8 +232,7 @@ public class MediaChoseActivity extends ActionBarActivity {
 			} else {
 				Toast.makeText(this, "截取图片失败", Toast.LENGTH_SHORT).show();
 			}
-		} else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CAMERA
-				&& (chosemode == PickConfig.MODE_SINGLE_PICK)) {
+		} else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CAMERA && (chosemode == PickConfig.MODE_SINGLE_PICK)) {
 			if (currentfile != null && currentfile.exists() && currentfile.length() > 10) {
 				if (isneedCrop && !isCropOver) {
 					sendStarCrop(currentfile.getAbsolutePath());
@@ -255,12 +248,10 @@ public class MediaChoseActivity extends ActionBarActivity {
 			} else {
 				Toast.makeText(MediaChoseActivity.this, "获取图片失败", Toast.LENGTH_SHORT).show();
 			}
-		} else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CAMERA
-				&& (chosemode == PickConfig.MODE_MULTIP_PICK)) {
+		} else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CAMERA && (chosemode == PickConfig.MODE_MULTIP_PICK)) {
 
 			if (currentfile != null && currentfile.exists() && currentfile.length() > 10) {
-				getImageChoseMap()
-						.put(currentfile.getAbsolutePath(), currentfile.getAbsolutePath());
+				getImageChoseMap().put(currentfile.getAbsolutePath(), currentfile.getAbsolutePath());
 				invalidateOptionsMenu();
 				insertImage(currentfile.getAbsolutePath());
 			} else {
@@ -271,14 +262,12 @@ public class MediaChoseActivity extends ActionBarActivity {
 
 	public void insertImage(String fileName) {
 		try {
-			MediaStore.Images.Media.insertImage(getContentResolver(), fileName,
-					new File(fileName).getName(), new File(fileName).getName());
+			MediaStore.Images.Media.insertImage(getContentResolver(), fileName, new File(fileName).getName(), new File(fileName).getName());
 			Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 			Uri uri = Uri.fromFile(new File(fileName));
 			intent.setData(uri);
 			sendBroadcast(intent);
-			MediaScannerConnection.scanFile(this, new String[] { fileName },
-					new String[] { "image/jpeg" },
+			MediaScannerConnection.scanFile(this, new String[] { fileName }, new String[] { "image/jpeg" },
 					new MediaScannerConnection.MediaScannerConnectionClient() {
 						@Override
 						public void onMediaScannerConnected() {
@@ -321,8 +310,7 @@ public class MediaChoseActivity extends ActionBarActivity {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 		date = new Date(System.currentTimeMillis());
 		str = format.format(date);
-		return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-				"IMG_" + str + ".jpg");
+		return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "IMG_" + str + ".jpg");
 	}
 
 	public File getCropFile() {
@@ -335,8 +323,7 @@ public class MediaChoseActivity extends ActionBarActivity {
 	 * @return
 	 */
 	public String getTmpPhotos() {
-		return new File(getCacheFile(), ".tmpcamara" + System.currentTimeMillis() + ".jpg")
-				.getAbsolutePath();
+		return new File(getCacheFile(), ".tmpcamara" + System.currentTimeMillis() + ".jpg").getAbsolutePath();
 	}
 
 	/**
